@@ -1,0 +1,25 @@
+h1, h2 {
+    font-family: 'Oswald', arial;
+}
+
+body {
+    background-color: ivory;
+    color: darkblue;
+    font-family: 'Open Sans', arial;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 950px;
+}
+
+td {
+    text-align: left;
+    vertical-align: top;
+    width: 300px;
+}
+
+img {
+    float: left;
+    margin-right: 10px;
+}
