@@ -6,38 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smartphone Products</title>
     <link rel="stylesheet" href="products-style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Tangerine">
+    <style>
+        img {
+            border: 1px solid #ddd;
+            /* Gray border */
+            border-radius: 4px;
+            /* Rounded border */
+            padding: 5px;
+            /* Some padding */
+            width: 150px;
+            /* Set a small width */
+        }
+        img:hover {
+        box-shadow: 0 0 10px 2px rgb(255, 0, 255);
+        }
+        .price:hover {
+        box-shadow: 0 0 2px 1px black;
+        }
+    </style>
 </head>
 <body>
     <h1>Used Smart Phone Store</h1>
 
-    <div><main>
-    <section class="item">
-        <h2>HTC</h2>
-        <p>&dollar;40.00</p>
-        <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg" alt="HTC phone">
-    </section>
-    <section class="item">
-        <h2>Apple</h2>
-        <p>&dollar;75.00</p>
-        <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg" alt="iPhone">
-    </section>
-    <section class="item">
-        <h2>Nokia</h2>
-        <p>&dollar;35.00</p>
-        <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg" alt="Nokia phone">
-    </section>
-    <section class="item">
-        <h2>Samsung</h2>
-        <p>&dollar;45.00</p>
-        <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg" alt="Samsung phone">
-    </section>
-    <section class="item">
-        <h2>Blackberry</h2>
-        <p>&dollar;10.00</p>
-        <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg" alt="Blackberry phone">
-    </section>
-    </main></div>
+    <div class="table">
+    <div class="left">
 
-    <h2>Your one stop phone shop!</h2>
+    </div>
+    <div class="right">
+    <main>
+        <section class="item">
+            <h2>HTC</h2>
+            <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg" alt="HTC phone">
+            <p class="price">&dollar;40.00</p>
+        </section>
+        <section class="item">
+            <h2>Apple</h2>
+            <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg" alt="iPhone">
+            <p class="price">&dollar;75.00</p>
+        </section>
+        <section class="item">
+            <h2>Nokia</h2>
+            <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg" alt="Nokia phone">
+            <p class="price">&dollar;35.00</p>
+        </section>
+        <section class="item">
+            <h2>Samsung</h2>
+            <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg" alt="Samsung phone">
+            <p class="price">&dollar;45.00</p>
+        </section>
+        <section class="item">
+            <h2>Blackberry</h2>
+            <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg" alt="Blackberry phone">
+            <p class="price">&dollar;10.00</p>
+        </section>
+    </main>
+    </div>
+    </div>
+
+    <h3>Your one stop phone shop!</h3>
 </body>
 </html>
