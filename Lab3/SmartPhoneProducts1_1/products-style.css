@@ -1,0 +1,67 @@
+/* General */
+body {
+    width: 800px;
+    margin: 0 auto;
+}
+
+div {
+    background-color: rgb(91, 91, 180);
+    border: 3px solid black;
+    color: white;
+    display: flex; 
+    font-family: 'Oswald', sans;
+}
+
+.left {
+    background-image: url("images/back.png");
+    width: 300px;
+}
+
+.price {
+    background-color: rgb(164, 2, 179);
+    border: 2px solid black;
+    text-align: center;
+}
+
+/* Image Styles */
+img {
+    height: 200px;
+    width: 200px;
+}
+
+h1 {
+    font-family: 'Oswald', sans;
+    font-size: 52px;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+h3 {
+    font-size: 40px;
+    font-family: 'Tangerine', sans;
+    text-align: center;
+}
+
+/* Main Element */
+main {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.rotate img
+{
+  animation: rotation .3s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
