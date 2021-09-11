@@ -38,7 +38,8 @@
 }
 
 .slider:hover {
-  opacity: 1;
+    box-shadow: 0 0 25px 1px rgb(255, 0, 255);
+    opacity: 1;
 }
 
 .slider::-webkit-slider-thumb {
@@ -71,6 +72,7 @@
 
     <input class="slider" id='speedSlider' type='range' min=".1" max="5" step=".1" style="direction: rtl;"
     onchange="localStyle.innerHTML = '.rotate img {animation-duration: ' + speedSlider.value + 's;}';"
+
     >
 
     <p>
