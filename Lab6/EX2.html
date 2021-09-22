@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 2</title>
+</head>
+<body>
+    <script>
+        var whatIsIt = 1.2 + "34" + 01067 * true;
+        document.write("The weird expression is: " + whatIsIt);
+
+        var whatIsIt2 = (String(1.2) + "34" + String(01067)) * true;
+        document.write("<br>The slightly less weird expression is: " + whatIsIt2);
+
+        var whatIsIt3 = 1.2 + Number("34") + 01067 * true;
+        document.write("<br>The expression with Number casting is: " + whatIsIt3);
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 4</title>
+</head>
+<body>
+    <script>
+        var fullName = "Clay Sedgwick";
+        var tax = 0.0417;
+        var billPrice = 199.99;
+        var billTax = billPrice * tax;
+        var totalPrice = billPrice + billTax;
+        document.write("The tax on " + fullName + "'s $" + billPrice.toFixed(2) + " bill is $"
+            + billTax.toFixed(2) + " making the total bill price $" + totalPrice.toFixed(2));
+    </script>
+</body>
+</html>
