@@ -1,3 +1,14 @@
+/* Header */
+header {
+    border: 5px solid black;
+}
+
+/* Footer */
+footer {
+    border: 5px solid black;
+    border-top: 0;
+}
+
 /* General */
 body {
     width: 800px;
