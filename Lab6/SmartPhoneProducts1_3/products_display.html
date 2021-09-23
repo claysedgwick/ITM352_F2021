@@ -41,7 +41,7 @@
         }
 
         .slider:hover {
-            box-shadow: 0 0 25px 1px rgb(255, 0, 255);
+            box-shadow: 0 0 25px 10px rgb(91, 91, 180);
             opacity: 1;
         }
 
@@ -79,11 +79,11 @@
                 document.write(store_name);
             </script>
         </h1>
-        <p>
+        <h2>
             Hits: <span id="hits_span">0</span>
             Spins: <span id="spins_span">0</span>
             Hit/Spin:<span id="hits_spin_span">0</span>
-        </p>
+        </h2>
     </header>
 
     <h3>Slide the phone to change the spinning speed!
@@ -111,7 +111,7 @@
                     hits_spin_span.innerHTML = temp.toFixed(2);
                     " onclick="
                     className='item'
-                    hits += 1;
+                    hits++;
                     hits_span.innerHTML = hits;
                     temp = (hits/spins);
                     hits_spin_span.innerHTML = temp.toFixed(2);">
@@ -121,36 +121,48 @@
                 </section>
                 <section class="item" onmouseover="
                     className='item rotate'
-                    spins++;
+                    spins += 1;
                     spins_span.innerHTML = spins;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);
                     " onclick="
                     className='item'
                     hits++;
-                    hits_span.innerHTML = hits;">
+                    hits_span.innerHTML = hits;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);">
                     <h2>Apple</h2>
                     <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg" alt="iPhone">
                     <p class="price">&dollar;75.00</p>
                 </section>
                 <section class="item" onmouseover="
                     className='item rotate'
-                    spins++;
+                    spins += 1;
                     spins_span.innerHTML = spins;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);
                     " onclick="
                     className='item'
                     hits++;
-                    hits_span.innerHTML = hits;">
+                    hits_span.innerHTML = hits;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);">
                     <h2>Nokia</h2>
                     <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg" alt="Nokia phone">
                     <p class="price">&dollar;35.00</p>
                 </section>
                 <section class="item" onmouseover="
                     className='item rotate'
-                    spins++;
+                    spins += 1;
                     spins_span.innerHTML = spins;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);
                     " onclick="
                     className='item'
                     hits++;
-                    hits_span.innerHTML = hits;">
+                    hits_span.innerHTML = hits;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);">
                     <h2>Samsung</h2>
                     <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg"
                         alt="Samsung phone">
@@ -158,12 +170,16 @@
                 </section>
                 <section class="item" onmouseover="
                     className='item rotate'
-                    spins++;
+                    spins += 1;
                     spins_span.innerHTML = spins;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);
                     " onclick="
                     className='item'
                     hits++;
-                    hits_span.innerHTML = hits;">
+                    hits_span.innerHTML = hits;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);">
                     <h2>Blackberry</h2>
                     <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg"
                         alt="Blackberry phone">
@@ -174,7 +190,18 @@
     </div>
 
     <footer>
-        <h3>Your one stop phone shop!</h3>
+        <br>
+        <script>
+        var now = new Date();
+        document.write(`
+            <table border="0" style="margin-left: auto; margin-right: auto; text-align: center;">
+                <tr><th colspan="2"><h3>Your One Stop For Used Phones - ${first_name[0]}.${last_name[0]}.'s</h3></th></tr>
+                <tr><td></td><td><br />Copyright @ ${first_name + " " + last_name}</td></tr>
+                <tr><td></td><td>${now.getFullYear()}</td></tr>
+                <tr><td></td><td>${((now.getHours() + 11) % 12 + 1) + ":" + now.getMinutes() + " " + ((now.getHours() < 12)?'AM':'PM')}</td></tr>
+            </table>
+        `);
+        </script>
     </footer>
 </body>
 
