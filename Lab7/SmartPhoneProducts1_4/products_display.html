@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Better Smartphone Products</title>
+    <link rel="stylesheet" href="products-style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Tangerine">
+    <style>
+        img {
+            border: 1px solid #ddd;
+            /* Gray border */
+            border-radius: 4px;
+            /* Rounded border */
+            padding: 5px;
+            /* Some padding */
+            width: 150px;
+            /* Set a small width */
+        }
+
+        img:hover {
+            box-shadow: 0 0 10px 2px rgb(255, 0, 255);
+        }
+
+        .price:hover {
+            box-shadow: 0 0 2px 1px black;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            box-shadow: 0 0 25px 10px rgb(91, 91, 180);
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 50px;
+            height: 56px;
+            border: 0;
+            background: url("images/phoneslider.png");
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 50px;
+            height: 56px;
+            border: 0;
+            background: url("images/phoneslider.png");
+            cursor: pointer;
+        }
+    </style>
+    <style id="localStyle"></style>
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>
+            <script>
+                var hits = 10;
+                var spins = 20;
+                var over_half = false;
+                var first_name = "Clay";
+                var last_name = "Sedgwick"
+                var store_name = "<p style=font-size:33pt><b>" + first_name + "</b><i> " + last_name + "</i>'s Lab 7 Used Smart Phone Store</p>";
+                document.write(store_name);
+            </script>
+        </h1>
+        <h2>
+            Hits: <span id="hits_span">0</span>
+            Spins: <span id="spins_span">0</span>
+            Hit/Spin:<span id="hits_spin_span">0</span>
+            You win:<span id="win_span">pending...</span>
+        </h2>
+    </header>
+
+    <h3>Slide the phone to change the spinning speed!
+        <br>
+    </h3>
+
+    <input class="slider" id='speedSlider' type='range' min=".1" max="5" step=".1" style="direction: rtl;"
+        onchange="localStyle.innerHTML = '.rotate img {animation-duration: ' + speedSlider.value + 's;}';">
+
+    <p>
+        <br>
+    </p>
+
+    <div class="table">
+        <div class="left">
+
+        </div>
+        <div class="right">
+            <main>
+                <section class="item" 
+                    onmouseover="
+                        if (this.className.includes('rotate') == false) {
+                            spins++;
+                            this.className = 'item rotate';
+                        }
+                        className='item rotate'
+                        spins += 1;
+                        spins_span.innerHTML = spins;
+                        ratio = (hits/spins);
+                        hits_spin_span.innerHTML = ratio.toFixed(2);
+                        if (ratio < 0.5) {
+                            win_span.innerHTML = over_half;
+                        }
+                        else {
+                            over_half = true;
+                            win_span.innerHTML = over_half;
+                        }
+                    " onclick="
+                        
+                        hits_span.innerHTML = hits;
+                        ratio = (hits/spins);
+                        hits_spin_span.innerHTML = ratio.toFixed(2);
+                        
+                        /* Check if the class name include rotate. If so then stop rotation. */
+                        if (this.className.includes('rotate')) {
+                            this.className = 'item';
+                            hits++;
+                        }
+                        else {
+                            this.className = 'item rotate';
+                        }">
+                    <h2>HTC</h2>
+                    <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg" alt="HTC phone">
+                    <p class="price">&dollar;40.00</p>
+                </section>
+                <section class="item" onmouseover="
+                    className='item rotate'
+                    spins += 1;
+                    spins_span.innerHTML = spins;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);
+                    " onclick="
+                    className='item'
+                    hits++;
+                    hits_span.innerHTML = hits;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);">
+                    <h2>Apple</h2>
+                    <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg" alt="iPhone">
+                    <p class="price">&dollar;75.00</p>
+                </section>
+                <section class="item" onmouseover="
+                    className='item rotate'
+                    spins += 1;
+                    spins_span.innerHTML = spins;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);
+                    " onclick="
+                    className='item'
+                    hits++;
+                    hits_span.innerHTML = hits;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);">
+                    <h2>Nokia</h2>
+                    <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg" alt="Nokia phone">
+                    <p class="price">&dollar;35.00</p>
+                </section>
+                <section class="item" onmouseover="
+                    className='item rotate'
+                    spins += 1;
+                    spins_span.innerHTML = spins;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);
+                    " onclick="
+                    className='item'
+                    hits++;
+                    hits_span.innerHTML = hits;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);">
+                    <h2>Samsung</h2>
+                    <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg"
+                        alt="Samsung phone">
+                    <p class="price">&dollar;45.00</p>
+                </section>
+                <section class="item" onmouseover="
+                    className='item rotate'
+                    spins += 1;
+                    spins_span.innerHTML = spins;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);
+                    " onclick="
+                    className='item'
+                    hits++;
+                    hits_span.innerHTML = hits;
+                    temp = (hits/spins);
+                    hits_spin_span.innerHTML = temp.toFixed(2);">
+                    <h2>Blackberry</h2>
+                    <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg"
+                        alt="Blackberry phone">
+                    <p class="price">&dollar;10.00</p>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <footer>
+        <br>
+        <script>
+        var now = new Date();
+        document.write(`
+            <table border="0" style="margin-left: auto; margin-right: auto; text-align: center;">
+                <tr><th colspan="2"><h3>Your One Stop For Used Phones - ${first_name[0]}.${last_name[0]}.'s</h3></th></tr>
+                <tr><td></td><td><br />Copyright @ ${first_name + " " + last_name}</td></tr>
+                <tr><td></td><td>${now.getFullYear()}</td></tr>
+                <tr><td></td><td>${((now.getHours() + 11) % 12 + 1) + ":" + now.getMinutes() + " " + ((now.getHours() < 12)?'AM':'PM')}</td></tr>
+            </table>
+        `);
+        </script>
+    </footer>
+</body>
+
+</html>
