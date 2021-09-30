@@ -107,6 +107,60 @@
             <main>
                 <section class="item" 
                     onmouseover="
+                        spins++;
+                        this.className = 'item rotate';
+
+                        // -- Winning progress depends on hits/spins
+                        hits_spins_ratio = hits/spins;
+                        if ( hits_spins_ratio > 0 ) {
+                            progress = 'On your way!';
+                        }
+                        else if ( hits_spins_ratio >= 0.25 ) {
+                            progress = 'Almost there!';
+                        }
+                        else if ( hits_spins_ratio >= 0.5 ) {
+                            if( hits < spins) { 
+                                progress = 'You win!';
+                            }
+                        }
+                        else {
+                            progress = 'Get going!' ;
+                        }
+
+                        spins_span.innerHTML = spins;
+                        ratio = (hits/spins);
+                        hits_spin_span.innerHTML = ratio.toFixed(2);
+                        if (ratio < 0.5) {
+                            over_half = true;
+                        }
+                        win_span.innerHTML = progress;
+                    " onclick="
+                        
+                        hits_span.innerHTML = hits;
+                        ratio = (hits/spins);
+                        hits_spin_span.innerHTML = ratio.toFixed(2);
+                        
+                        /* Check if the class name include rotate. If so then stop rotation. */
+                        if (this.className.includes('rotate')) {
+                            this.className = 'item';
+                            hits++;
+                        }
+                        else {
+                            this.className = 'item rotate';
+                        }
+                        if (ratio < 0.5) {
+                            win_span.innerHTML = over_half;
+                        }
+                        else {
+                            over_half = true;
+                            win_span.innerHTML = over_half;
+                        }">
+                    <h2>HTC</h2>
+                    <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg" alt="HTC phone">
+                    <p class="price">&dollar;40.00</p>
+                </section>
+                <section class="item" 
+                    onmouseover="
                         if (this.className.includes('rotate') == false) {
                             spins++;
                             this.className = 'item rotate';
@@ -136,72 +190,144 @@
                         }
                         else {
                             this.className = 'item rotate';
+                        }
+                        if (ratio < 0.5) {
+                            win_span.innerHTML = over_half;
+                        }
+                        else {
+                            over_half = true;
+                            win_span.innerHTML = over_half;
                         }">
-                    <h2>HTC</h2>
-                    <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg" alt="HTC phone">
-                    <p class="price">&dollar;40.00</p>
-                </section>
-                <section class="item" onmouseover="
-                    className='item rotate'
-                    spins += 1;
-                    spins_span.innerHTML = spins;
-                    temp = (hits/spins);
-                    hits_spin_span.innerHTML = temp.toFixed(2);
-                    " onclick="
-                    className='item'
-                    hits++;
-                    hits_span.innerHTML = hits;
-                    temp = (hits/spins);
-                    hits_spin_span.innerHTML = temp.toFixed(2);">
                     <h2>Apple</h2>
                     <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg" alt="iPhone">
                     <p class="price">&dollar;75.00</p>
                 </section>
-                <section class="item" onmouseover="
-                    className='item rotate'
-                    spins += 1;
-                    spins_span.innerHTML = spins;
-                    temp = (hits/spins);
-                    hits_spin_span.innerHTML = temp.toFixed(2);
+                <section class="item" 
+                    onmouseover="
+                        if (this.className.includes('rotate') == false) {
+                            spins++;
+                            this.className = 'item rotate';
+                        }
+                        className='item rotate'
+                        spins += 1;
+                        spins_span.innerHTML = spins;
+                        ratio = (hits/spins);
+                        hits_spin_span.innerHTML = ratio.toFixed(2);
+                        if (ratio < 0.5) {
+                            win_span.innerHTML = over_half;
+                        }
+                        else {
+                            over_half = true;
+                            win_span.innerHTML = over_half;
+                        }
                     " onclick="
-                    className='item'
-                    hits++;
-                    hits_span.innerHTML = hits;
-                    temp = (hits/spins);
-                    hits_spin_span.innerHTML = temp.toFixed(2);">
+                        
+                        hits_span.innerHTML = hits;
+                        ratio = (hits/spins);
+                        hits_spin_span.innerHTML = ratio.toFixed(2);
+                        
+                        /* Check if the class name include rotate. If so then stop rotation. */
+                        if (this.className.includes('rotate')) {
+                            this.className = 'item';
+                            hits++;
+                        }
+                        else {
+                            this.className = 'item rotate';
+                        }
+                        if (ratio < 0.5) {
+                            win_span.innerHTML = over_half;
+                        }
+                        else {
+                            over_half = true;
+                            win_span.innerHTML = over_half;
+                        }">
                     <h2>Nokia</h2>
                     <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg" alt="Nokia phone">
                     <p class="price">&dollar;35.00</p>
                 </section>
-                <section class="item" onmouseover="
-                    className='item rotate'
-                    spins += 1;
-                    spins_span.innerHTML = spins;
-                    temp = (hits/spins);
-                    hits_spin_span.innerHTML = temp.toFixed(2);
+                <section class="item" 
+                    onmouseover="
+                        if (this.className.includes('rotate') == false) {
+                            spins++;
+                            this.className = 'item rotate';
+                        }
+                        className='item rotate'
+                        spins += 1;
+                        spins_span.innerHTML = spins;
+                        ratio = (hits/spins);
+                        hits_spin_span.innerHTML = ratio.toFixed(2);
+                        if (ratio < 0.5) {
+                            win_span.innerHTML = over_half;
+                        }
+                        else {
+                            over_half = true;
+                            win_span.innerHTML = over_half;
+                        }
                     " onclick="
-                    className='item'
-                    hits++;
-                    hits_span.innerHTML = hits;
-                    temp = (hits/spins);
-                    hits_spin_span.innerHTML = temp.toFixed(2);">
+                        
+                        hits_span.innerHTML = hits;
+                        ratio = (hits/spins);
+                        hits_spin_span.innerHTML = ratio.toFixed(2);
+                        
+                        /* Check if the class name include rotate. If so then stop rotation. */
+                        if (this.className.includes('rotate')) {
+                            this.className = 'item';
+                            hits++;
+                        }
+                        else {
+                            this.className = 'item rotate';
+                        }
+                        if (ratio < 0.5) {
+                            win_span.innerHTML = over_half;
+                        }
+                        else {
+                            over_half = true;
+                            win_span.innerHTML = over_half;
+                        }">
                     <h2>Samsung</h2>
                     <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg"
                         alt="Samsung phone">
                     <p class="price">&dollar;45.00</p>
                 </section>
-                <section class="item" onmouseover="
-                    className='item rotate'
-                    spins += 1;
-                    spins_span.innerHTML = spins;
-                    temp = (hits/spins);
-                    hits_spin_span.innerHTML = temp.toFixed(2);
+                <section class="item" 
+                    onmouseover="
+                        if (this.className.includes('rotate') == false) {
+                            spins++;
+                            this.className = 'item rotate';
+                        }
+                        className='item rotate'
+                        spins += 1;
+                        spins_span.innerHTML = spins;
+                        ratio = (hits/spins);
+                        hits_spin_span.innerHTML = ratio.toFixed(2);
+                        if (ratio < 0.5) {
+                            win_span.innerHTML = over_half;
+                        }
+                        else {
+                            over_half = true;
+                            win_span.innerHTML = over_half;
+                        }
                     " onclick="
-                    className='item'
-                    hits++;
-                    hits_span.innerHTML = hits;
-                    temp = (hits/spins);
-                    hits_spin_span.innerHTML = temp.toFixed(2);">
+                        
+                        hits_span.innerHTML = hits;
+                        ratio = (hits/spins);
+                        hits_spin_span.innerHTML = ratio.toFixed(2);
+                        
+                        /* Check if the class name include rotate. If so then stop rotation. */
+                        if (this.className.includes('rotate')) {
+                            this.className = 'item';
+                            hits++;
+                        }
+                        else {
+                            this.className = 'item rotate';
+                        }
+                        if (ratio < 0.5) {
+                            win_span.innerHTML = over_half;
+                        }
+                        else {
+                            over_half = true;
+                            win_span.innerHTML = over_half;
+                        }">
                     <h2>Blackberry</h2>
                     <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg"
                         alt="Blackberry phone">
