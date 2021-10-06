@@ -1,0 +1,158 @@
+<script>
+    /*
+    This file is used to create an invoice for five items
+    and to calculate subtotal and total with tax.
+    */
+
+    // Product 1
+    var item1 = 'Anjunadeep Volume 12 (CD)';
+    var quantity1 = 1;
+    var price1 = 7.99;
+
+    // Product Data
+    // Product 2
+    var item2 = 'Deadmau5 - Random Album Title (Vinyl)';
+    var quantity2 = 1;
+    var price2 = 2.96;
+
+    // Product 3
+    var item3 = 'Jurassic Park Soundtrack (CD)';
+    var quantity3 = 1;
+    var price3 = 4.95;
+
+    // Product 4
+    var item4 = 'Chicane - Far From the Maddening Crowds (Vinyl)';
+    var quantity4 = 100;
+    var price4 = 19.97;
+
+    // Product 5
+    var item5 = 'Marsh - Innocence (CD)';
+    var quantity5 = 1;
+    var price5 = 4.99;
+
+    // Compute Extended Price
+    var extended_price1 = quantity1 * price1;
+    var extended_price2 = quantity2 * price2;
+    var extended_price3 = quantity3 * price3;
+    var extended_price4 = quantity4 * price4;
+    var extended_price5 = quantity5 * price5;
+
+    // Subtotal
+    var subtotal = extended_price1 + extended_price2 + extended_price3 + extended_price4 + extended_price5;
+
+    // Calculate Tax Rate
+    var taxRate = 0.0575;
+    var taxAmount = subtotal * taxRate;
+
+    // Shipping Cost
+    var shipping = 0;
+    if (subtotal <= 50) {
+      shipping = 2;
+    }
+    else if (subtotal <= 100) {
+      shipping = 5;
+    }
+    else {
+      shipping = subtotal * 0.05;
+    }
+
+    // Grand Total
+    var total = subtotal + taxAmount + shipping;
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <table style="border-collapse: collapse; width: 514px; height: 319px;" border="2" bordercolor="#111111" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <th style="text-align: center;" width="43%">Item</th>
+            <th style="text-align: center;" width="11%">quantity</th>
+            <th style="text-align: center;" width="13%">price</th>
+            <th style="text-align: center;" width="54%">extended price</th>
+          </tr>
+          <script>
+            document.write(`
+            <tr>
+                <td width="43%">${item1}</td>
+                <td align="center" width="11%">${quantity1}</td>
+                <td width="13%">\$${price1}</td>
+                <td width="54%">\$${extended_price1}</td>
+            </tr>
+            `);
+          </script>
+          <script>
+            document.write(`
+            <tr>
+                <td width="43%">${item2}</td>
+                <td align="center" width="11%">${quantity2}</td>
+                <td width="13%">\$${price2}</td>
+                <td width="54%">\$${extended_price2}</td>
+            </tr>
+            `);
+          </script>
+          <script>
+            document.write(`
+            <tr>
+                <td width="43%">${item3}</td>
+                <td align="center" width="11%">${quantity3}</td>
+                <td width="13%">\$${price3}</td>
+                <td width="54%">\$${extended_price3}</td>
+            </tr>
+            `);
+          </script>
+          <script>
+            document.write(`
+            <tr>
+                <td width="43%">${item4}</td>
+                <td align="center" width="11%">${quantity4}</td>
+                <td width="13%">\$${price4}</td>
+                <td width="54%">\$${extended_price4}</td>
+            </tr>
+            `);
+          </script>
+          <script>
+            document.write(`
+            <tr>
+                <td width="43%">${item5}</td>
+                <td align="center" width="11%">${quantity5}</td>
+                <td width="13%">\$${price5}</td>
+                <td width="54%">\$${extended_price5}</td>
+            </tr>
+            `);
+          </script>
+          <tr>
+            <td colspan="4" width="100%">&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="text-align: left;" colspan="3" width="67%">Sub-total</td>
+            <td width="54%">$<script>document.write(subtotal.toFixed(2))</script></td>
+          </tr>
+          <tr>
+            <td style="text-align: left;" colspan="3" width="67%"><span style="font-family: arial;">Tax @ <script>document.write(taxRate * 100)</script>%</span></td>
+            <td width="54%">$<script>document.write(taxAmount.toFixed(2))</script></td>
+          </tr>
+          <tr>
+            <td style="text-align: left;" colspan="3" width="67%"><span style="font-family: arial;">Shipping</span></td>
+            <td width="54%">$<script>document.write(shipping.toFixed(2))</script></td>
+          </tr>
+          <tr>
+            <td style="text-align: left;" colspan="3" width="67%"><strong>Total</strong></td>
+            <td width="54%"><strong>$<script>document.write(total.toFixed(2))</script></strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <b>OUR SHIPPING POLICY IS:A subtotal $0 - $49.99 will be $2 shipping<br>
+        A subtotal $50 - $99.99 will be $5 shipping<br>
+        Subtotals over $100 will be charged 5% of the subtotal amount</b>
+      </p>
+</body>
+</html>
