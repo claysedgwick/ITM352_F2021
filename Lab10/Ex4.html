@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var product_quantities = [1, 2, 5, 1, 2];
+
+        // array of all products
+        // corresponds to product_quantities array
+        // product_quantities[i] is the quantity for products[i]
+        products = [
+        { 'name': 'small gumball', 'price': 0.02 },
+        { 'name': 'medium gumball', 'price': 0.05 },
+        { 'name': 'large gumball', 'price': 0.07 },
+        { 'name': 'small jawbreaker', 'price': 0.06 },
+        { 'name': 'large jawbreaker', 'price': 0.10 }
+        ];
+    </script>
+
+    <table style="border:1px solid black; text-align: center"
+        onclick="
+        var new_row = document.getElementsByTagName('table')[0];
+        new_row = this.appendChild(document.createElement('tr'));
+        for (i=1; i <= this.rows[0].cells.length; i++) {
+            new_cell = this.appendChild(document.createElement('td'));
+            new_cell.innerHTML = 'xxx';
+        }
+        ">
+        
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Extended Price</th>
+
+        <script>
+            for (i = 0; i < product_quantities.length; i++) {
+                document.write(`<tr>`);
+                extended = products[i].price * product_quantities[i];
+                document.write(`<td style="padding:5px">${products[i].name}</td>
+                    <td style="padding:5px; text-align:center">$ ${products[i].price.toFixed(2)}</td>
+                    <td style="padding:5px; text-align:center">${product_quantities[i]}</td>
+                    <td style="padding:5px; text-align:center">$ ${extended.toFixed(2)}</td>`);
+                document.write(`</tr>`);
+            }
+        </script>
+    </table>
+
+    <input type="button" value="Delete Last Row" onclick="
+        var tbody = document.getElementsByTagName('table')[0];
+        tbody = tbody.deleteRow(tbody.rows.length - 1);
+    "> 
+</body>
+</html>
