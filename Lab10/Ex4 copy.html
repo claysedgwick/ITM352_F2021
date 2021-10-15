@@ -22,21 +22,31 @@
         ];
     </script>
 
-    <table id="tbl" style="border:1px solid black; text-align: center"
-        onclick="
-        var new_row = document.getElementsByTagName('table');
-        new_row = this.appendChild(document.createElement('tr'));
-        for (i=1; i <= this.rows[0].cells.length; i++) {
-            new_cell = this.appendChild(document.createElement('td'));
-            new_cell.innerHTML = 'xxx';
-        }
-        ">
-        
+    <table id="tbl" style="border:1px solid black; text-align: center">
+        <thead>
         <th>Name</th>
         <th>Price</th>
         <th>Quantity</th>
         <th>Extended Price</th>
+        </thead>
 
+        <tbody id="t_body" onclick="
+            /*this.insertRow();
+            for (i=1; i <= this.rows[0].cells.length; i++) {
+                var new_cell = appendChild(document.createElement('td'));
+                new_cell.innerHTML = 'xxx';
+            }*/
+
+            
+            //var new_row = `<tr><td style='padding:5px'>xxx</td><td style='padding:5px; text-align:center'>xxx</td><td style='padding:5px; text-align:center'>xxx</td><td style='padding:5px; text-align:center'>xxx</td></tr>`;
+            //this.appendChild(new_row);
+            var new_row = this.appendChild(document.createElement('tr'));
+            for (i=1; i <= this.rows[0].cells.length; i++) {
+                var new_cell = new_row.appendChild(document.createElement('td'));
+                new_cell.innerHTML = 'xxx';
+            }
+        ">
+        
         <script>
             for (i = 0; i < product_quantities.length; i++) {
                 extended = products[i].price * product_quantities[i];
@@ -47,12 +57,16 @@
                 document.write(`</tr>`);
             }
         </script>
+        </tbody>
     </table>
 
     <input type="button" value="Delete Last Row" onclick="
-        //var tbody = document.getElementById('tbl');
 
-        //tbody = tbody.deleteRow(tbody.rows.length - 1);
+        var tbody = document.getElementById('t_body');
+        tbody = tbody.deleteRow(tbody.rows.length - 1);
+        
+        //var node = document.getElementId('t_body');
+        //node.deleteRow(node.rows.length - 1);
     "> 
 </body>
 </html>
