@@ -31,15 +31,6 @@
         </thead>
 
         <tbody id="t_body" onclick="
-            /*this.insertRow();
-            for (i=1; i <= this.rows[0].cells.length; i++) {
-                var new_cell = appendChild(document.createElement('td'));
-                new_cell.innerHTML = 'xxx';
-            }*/
-
-            
-            //var new_row = `<tr><td style='padding:5px'>xxx</td><td style='padding:5px; text-align:center'>xxx</td><td style='padding:5px; text-align:center'>xxx</td><td style='padding:5px; text-align:center'>xxx</td></tr>`;
-            //this.appendChild(new_row);
             var new_row = this.appendChild(document.createElement('tr'));
             for (i=1; i <= this.rows[0].cells.length; i++) {
                 var new_cell = new_row.appendChild(document.createElement('td'));
