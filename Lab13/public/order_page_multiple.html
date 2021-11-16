@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="./product_data.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Page</title>
+</head>
+<body>
+    <script>
+        function isNonNegativeInteger(inputString, returnErrors = false) {
+            // Validate that an input value is a non-negative integer
+            // @inputString - input string
+            // @returnErrors - how the function returns: true mean return an array, false a boolean
+            errors = []; // assume no errors at first
+            if(Number(inputString) != inputString) {
+                errors.push('Not a number!'); // Check if string is a number value
+            }
+            else {
+                if(inputString < 0) errors.push('Negative value!'); // Check if it is non-negative
+                if(parseInt(inputString) != inputString) errors.push('Not an integer!'); // Check that it is an integer
+            }
+            return returnErrors ? errors : (errors.length == 0);
+        }
+
+        function displayPurchase() {
+            // Display the number of products purchased.
+            num_products = quantity_textbox.value;
+            if (isNonNegativeInteger(num_products)) {
+                document.write(`Thank you for purchasing ${num_products} things`);
+            }  
+        }
+        
+        function checkQuantityTextbox(theTextbox) {
+            errs = isNonNegInt(theTextbox.value, true);
+            document.getElementById(theTextbox.name + '_message').innerHTML = errs.join(", ");
+        }
+
+        let params = (new URL(document.location)).searchParams;
+
+        // Check if the textbox exists
+        if (params.has('quantity_textbox')) {
+            if (isNonNegativeInteger(params.get('quantity_textbox'))) {
+                document.body.innerHTML = `Thank you for ordering ${params.get('quantity_textbox')} things!`;
+            }
+            else {
+                document.body.innerHTML = `Invalid quantity homie. Try again.`;
+            }   
+        }
+        if (params.has('error')) {
+            error_message = params.get('error');
+            alert(error_message);
+        }
+    </script>
+
+    <form name='quantity_form' action="process_form" method="POST">
+        <script>
+            for (i in products) {
+                document.write(`<h3>${products[i]["name"]} at \$${products[i]["price"]} (${products[i]["total_sold"]} sold)</h3>`);
+                document.write(`
+                    <label for="quantity_textbox">quantity desired:</label>
+                    <input type="text" name="quantity_textbox[${i}]" onkeyup="checkQuantityTextbox(this);">
+                    <span id="quantity_textbox[${i}]_message">Enter a quantity</span>
+                `);
+            }
+        </script>
+        <br>
+        <input type="submit" value='Purchase'>
+    </form>
+
+</body>
+</html>
