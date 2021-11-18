@@ -77,12 +77,10 @@ a {
     box-shadow: 0 0 15px 3px rgb(226, 219, 157);
 }
 
-/* Opacity lightener for hover over beer picture */
 .beerPicture:hover {
     opacity: 0.75;
 }
 
-/* Format Invoice Table */
 .invoiceTable {
     font-family: 'Josefin Sans', sans-serif;
     margin-left: auto;

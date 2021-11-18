@@ -27,6 +27,7 @@
         if (theTextbox.value.trim() == '') errs = ['Quantity'];
         document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
     }
+    </script>
 </head>
 
 <body>

@@ -23,8 +23,6 @@ function isNonNegativeInteger(inputString, returnErrors = false) {
     return returnErrors ? errors : (errors.length == 0);
 }
 
-// POST from store form to invoice page
-// Used parts of Lab13
 app.post("/process_invoice", function (request, response, next) {
     let POST = request.body;
 
@@ -60,8 +58,6 @@ app.post("/process_invoice", function (request, response, next) {
     var contents = fs.readFileSync('./views/invoice.template', 'utf8');
     response.send(eval('`' + contents + '`')); // render template string
 
-    // Function to display invoice table
-    // Utilized Invoice4 for this section
     function display_invoice_table_rows() {
         subtotal = 0;
         str = '';
@@ -107,14 +103,12 @@ app.post("/process_invoice", function (request, response, next) {
 
 });
 
-// Handle request for /store page
-// Modified code from Invoice4 and Lab13
 app.get("/store", function (request, response) {
     var contents = fs.readFileSync('./views/display_products.template', 'utf8');
     response.send(eval('`' + contents + '`')); // render template string
 
     function display_products() {
-        str = '<div class="products">'; // Initial div tag to format items via .products in style.CSS
+        str = '<div class="products">';
         for (i = 0; i < products.length; i++) {
             // Assign rating image address based off of rating attribute in product_data.js 
             if (products[i].rating >= 4.5) {
@@ -135,8 +129,6 @@ app.get("/store", function (request, response) {
             else {
                 ratingImage = "images/beer0.png";
             }
-
-            // Add HTML to string using for loop for each product in the JSON file
             str += `
                 <section class="item">
                 <h2>${products[i].name}</h2>
@@ -152,12 +144,11 @@ app.get("/store", function (request, response) {
                 </section>
             `;
         }
-        str += '</div>'; // Close out div tag
+        str += '</div>';
         return str;
     }
 });
 
-// Look for index.html here if no domain specified
 app.use(express.static('./static'));
 
 var listener = app.listen(8080, () => { console.log('server started listening on port ' + listener.address().port) });
