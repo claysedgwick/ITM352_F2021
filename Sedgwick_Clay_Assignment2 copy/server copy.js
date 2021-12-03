@@ -9,7 +9,7 @@ var queryString = require("query-string");
 
 var app = express();
 var errors = {}; // keep errors on server to share with registration page
-products.forEach((prod, i) => { prod.total_sold = 0 });
+products.forEach( (prod,i) => {prod.total_sold = 0});
 
 app.use(myParser.urlencoded({ extended: true }));
 app.use(express.static('./static'));
@@ -34,12 +34,12 @@ function isNonNegativeInteger(inputString, returnErrors = false) {
     // @inputString - input string
     // @returnErrors - how the function returns: true mean return an array, false a boolean
     errors = []; // assume no errors at first
-    if (Number(inputString) != inputString) {
+    if(Number(inputString) != inputString) {
         errors.push('Not a number!'); // Check if string is a number value
     }
     else {
-        if (inputString < 0) errors.push('Negative value!'); // Check if it is non-negative
-        if (parseInt(inputString) != inputString) errors.push('Not an integer!'); // Check that it is an integer
+        if(inputString < 0) errors.push('Negative value!'); // Check if it is non-negative
+        if(parseInt(inputString) != inputString) errors.push('Not an integer!'); // Check that it is an integer
     }
     return returnErrors ? errors : (errors.length == 0);
 }
@@ -55,13 +55,8 @@ app.get("/login", function (request, response) {
         str = `
             <body>
             <form action="" method="POST">
-            <input type="text" name="username" size="40" placeholder="enter username" >
-            ${(typeof errors['invalid_username'] != 'undefined') ? '<br>' + errors['invalid_username'] : ''}
-            <br>
-            <br>
-            <input type="password" name="password" size="40" placeholder="enter password">
-            ${(typeof errors['invalid_password'] != 'undefined') ? '<br>' + errors['invalid_password'] : ''}
-            <br>
+            <input type="text" name="username" size="40" placeholder="enter username" ><br>
+            <input type="password" name="password" size="40" placeholder="enter password"><br>
             <br>
             <input class="homepageButton" type="submit" value="Submit" id="submit">
             <br>
@@ -99,15 +94,13 @@ app.post("/login", function (request, response) {
         else {
             // Bad login, redirect
             console.log("Incorrect password entered by " + user_name);
-            errors['invalid_password'] = `<br>Invalid password entered`;
-            response.redirect("login");
+            response.send("Invalid password. Please try again.");
         }
     }
     else {
         // Bad username
         console.log("Invalid username entered by " + user_name);
-        errors['invalid_username'] = `<br>The username '${user_name}' is not a valid username`;
-        response.redirect("login");
+        response.send("Invalid username. Please try again.");
     }
 });
 
@@ -119,115 +112,131 @@ app.get("/register", function (request, response) {
 
     // Function to display the registration page utilized in register.template
     function display_register() {
-        // Intial setup for registration form
         str = `
             <body>
             <form action="" method="POST">
-        `;
-        // Sticky to keep username if registration fails
-        if (request.query["name_err"] == undefined) {
-            str += `
             <input type="text" name="username" size="40" placeholder="enter username" >
+            ${ (typeof errors['no_username'] != 'undefined')?errors['no_username']:''}
+            ${ (typeof errors['username_taken'] != 'undefined')?errors['username_taken']:''}
             <br>
+            <input type="password" name="password" minlength="4" size="40" placeholder="enter password"><br>
+            <input type="password" name="repeat_password" minlength="4" size="40" placeholder="enter password again">
+            ${ (typeof errors['password_mismatch'] != 'undefined')?errors['password_mismatch']:''}
             <br>
-            `;
-        }
-        else {
-            str += `
-                <input type="text" name="username" size="40" value="${request.query['name_err']}" >
-                ${(typeof errors['no_username'] != 'undefined') ? '<br>' + errors['no_username'] : ''}
-                ${(typeof errors['username_taken'] != 'undefined') ? '<br>' + errors['username_taken'] : ''}
-                <br>
-                <br>
-            `;
-        }
-        // Setup for password forms
-        str += `
-            <input type="password" name="password" size="40" placeholder="enter password"><br>
-            <br>
-            <input type="password" name="repeat_password" size="40" placeholder="enter password again">
-            ${(typeof errors['password_mismatch'] != 'undefined') ? '<br>' + errors['password_mismatch'] : ''}
-            ${(typeof errors['password_length_error'] != 'undefined') ? '<br>' + errors['password_length_error'] : ''}
-            ${(typeof errors['password_alphanumeric'] != 'undefined') ? '<br>' + errors['password_alphanumeric'] : ''}
-            <br>
-            <br>
-        `;
-        // Sticky to keep email if registration fails
-        if (request.query["name_err"] == undefined) {
-            str += `
-                <input type="email" name="email" size="40" placeholder="enter email"><br>
-                <br>
-                <br>
-            `;
-        }
-        else {
-            str += `
-                <input type="email" name="email" size="40" value="${request.query['email_err']}"><br>
-                <br>
-                <br>
-            `;
-        }
-        // End of form for registration page
-        str += `
-            <input class="homepageButton" type="submit" value="Register" id="submit">
+            <input type="email" name="email" size="40" placeholder="enter email"><br>
+            <input type="submit" value="Submit" id="submit">
             </form>
             </body>
         `;
-        // reset errors object for new registration attempts
-        errors = {};
         return str;
-    }
-});
-
-app.post("/register", function (request, response) {
-    // process a simple register form
-    username = request.body.username.toLowerCase();
-    email = request.body.email;
-    query_response = "";
-
-    // check is username taken
-    if (typeof user_data[username] != 'undefined') {
-        errors['username_taken'] = `<br>Hey! ${username} is already registered!`;
-    }
-    // check if usnername field is blank
-    if (request.body.username == '') {
-        errors['no_username'] = `<br>You need to select a username`;
-    }
-    // check if password matches repeat password
-    if (request.body.password != request.body.repeat_password) {
-        errors['password_mismatch'] = `<br>Password and repeat password do not match`;
-    }
-    // check if password is between 4 to 10 characters long
-    if (request.body.password.length < 4 || request.body.password.length > 10) {
-        errors['password_length_error'] = `<br>Password must be between 4 and 10 characters long`;
-    }
-    // check if password only contains alphanumeric characters
-    let pass_string = request.body.password;
-    let pass_array = pass_string.split('');
-    for (i in pass_array) {
-        if (pass_array[i] < '0' || pass_array[i] > 'z') {
-            errors['password_alphanumeric'] = `<br>Password must only contain letters or numbers`;
-            break;
         }
-    }
-    if (Object.keys(errors).length == 0) {
-        user_data[username] = {};
-        user_data[username].password = request.body.password;
-        user_data[username].email = request.body.email;
-        fs.writeFileSync(filename, JSON.stringify(user_data));
-        console.log("Saved: " + user_data);
-        response.redirect("./login");
-    } else {
-        query_response += "name_err=" + username + "&email_err=" + email;
-        response.redirect("register" + "?" + query_response);
-    }
-});
+    });
+    
+    app.post("/register", function (request, response) {
+        // process a simple register form
+        username = request.body.username.toLowerCase();
+    
+        // check is username taken
+        if(typeof user_data[username] != 'undefined') {
+            errors['username_taken'] = `<br>Hey! ${username} is already registered`;
+        }
+        if(request.body.password != request.body.repeat_password) {
+            errors['password_mismatch'] = `<br>Repeat password not the same as password`;
+        }
+        if(request.body.username == '') {
+            errors['no_username'] = `<br>You need to select a username!`;
+        }
+        if(Object.keys(errors).length == 0) {
+            user_data[username] = {};
+            user_data[username].password = request.body.password;
+            user_data[username].email = request.body.email;
+            fs.writeFileSync(filename, JSON.stringify(user_data));
+            console.log("Saved: " + user_data);
+            response.redirect("./login");
+        } else {
+            response.redirect("./register");
+        }
+    });
+
+// Handles requests to the registration page utilizing code from Lab14
+// app.get("/register", function (request, response) {
+//     // Give a simple register form
+//     var contents = fs.readFileSync('./views/register.template', 'utf8');
+//     response.send(eval('`' + contents + '`')); // render template string
+
+//     // Function to display the registration page utilized in register.template
+//     function display_register() {
+//     str = `
+//         <body>
+//         <form action="/register" method="POST">`;
+//         if (request.query["name_err"] == undefined) {
+//             str += `<input type="text" name="username" size="40" placeholder="enter username"><br>`;
+//         }
+//         else {
+//             str += `<input type="text" name="username" size="40" value="${request.query['name_err']}"> User already exists<br>`;
+//         }
+//         if (request.query["pass"] == "mismatch") {
+//             str+= `<input type="password" name="password" size="40" placeholder="enter password"> Password mismatch<br>`;
+//         }
+//         else {
+//             str += `<input type="password" name="password" size="40" placeholder="enter password"><br>`;
+//         }
+//         str += `<input type="password" name="repeat_password" size="40" placeholder="enter password again"><br>
+//             <input type="email" name="email" size="40" placeholder="enter email"><br>
+//             <br>
+//             <input class="homepageButton" type="submit" value="Submit" id="submit">
+//             </form>
+//             </body>
+//     `;
+//     return str;
+//     }
+// });
+
+// app.post("/register", function (request, response) {
+//     // process a simple register form
+//     console.log("Got a POST to login");
+
+//     // Grabbing names from forms to use in POST array
+//     POST = request.body;
+//     user_name = POST["username"];
+//     user_pass = POST["password"];
+//     user_pass_confirm = POST["repeat_password"];
+//     user_email = POST["email"];
+//     query_response = "";
+
+//     if (user_data[user_name] == undefined && user_pass == user_pass_confirm) {
+//         console.log("Adding User name=" + user_name);
+
+//         user_data[user_name] = {}
+//         user_data[user_name].name = user_name;
+//         user_data[user_name].password = user_pass;
+//         user_data[user_name].email = user_email;
+
+//         response.redirect("login");
+
+//         // Write data back to JSON file
+//         data = JSON.stringify(user_data);
+//         fs.writeFileSync(filename, data, "utf-8");
+//     }
+//     else {
+//         if (user_pass != user_pass_confirm) {
+//             console.log("Password mismatch for user: " + user_name);
+//             (query_response === '' ? query_response += "pass=mismatch" : query_response += "&pass=mismatch");
+//         }
+//         if (user_data[user_name] != undefined) {
+//             console.log("Bad request to add user: " + user_name);
+//             (query_response === '' ? query_response += ("name_err=" + user_name) : query_response += ("&name_err=" + user_name));
+//         }
+//         response.redirect("register" + "?" + query_response);
+//     }
+// });
 
 // Process the invoice from the entered quantities on the store page
 // Checks for valid quantities and if enough quantity is available
 // Invalid quantities are not added to inovice and message is displayed if not enough inventory exists
 // display_inovice_table_rows adds orders line-by-line to a string that is printed in invoice.template
 app.post("/process_invoice", function (request, response, next) {
+    let POST = request.body;
 
     // Logs to console the IP of purchase being made as well as the request of which items and the quantity requested
     console.log(Date.now() + ': Purchase made from ip ' + request.ip + ' data: ' + JSON.stringify(POST));
@@ -240,7 +249,7 @@ app.post("/process_invoice", function (request, response, next) {
         str = '';
         for (i = 0; i < products.length; i++) {
             a_qty = 0;
-            if (typeof POST[`quantity${i}`] != 'undefined') {
+            if(typeof POST[`quantity${i}`] != 'undefined') {
                 a_qty = POST[`quantity${i}`];
             }
             // If the quantity desired is greater than quantity available, this row will display and not be added to the total
@@ -259,7 +268,7 @@ app.post("/process_invoice", function (request, response, next) {
                 // If there is enough stock to meet the order, this row is displayed and computes extended price
                 // The quantity ordered is then removed from the quantity available.
                 else {
-                    extended_price = a_qty * products[i].price
+                    extended_price =a_qty * products[i].price
                     subtotal += extended_price;
                     str += (`
                     <tr>
@@ -299,7 +308,7 @@ app.post("/process_invoice", function (request, response, next) {
         if (total == 0) {
             response.redirect("store");
         }
-
+        
         return str;
     }
 

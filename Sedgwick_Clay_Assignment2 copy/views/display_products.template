@@ -31,7 +31,7 @@
 </head>
 
 <body>
-    <form name="product_selection_form" action="/login" method="GET">
+    <form name="product_selection_form" action="/process_invoice" method="POST">
         <header>
             <!-- Navigation Bar -->
             <div class="navBar">

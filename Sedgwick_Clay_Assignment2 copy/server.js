@@ -134,7 +134,7 @@ app.get("/register", function (request, response) {
         }
         else {
             str += `
-                <input type="text" name="username" size="40" value="${request.query['name_err']}" >
+                <input type="text" name="username" size="40" placeholder="${request.query['name_err']}" >
                 ${(typeof errors['no_username'] != 'undefined') ? '<br>' + errors['no_username'] : ''}
                 ${(typeof errors['username_taken'] != 'undefined') ? '<br>' + errors['username_taken'] : ''}
                 <br>
@@ -162,7 +162,7 @@ app.get("/register", function (request, response) {
         }
         else {
             str += `
-                <input type="email" name="email" size="40" value="${request.query['email_err']}"><br>
+                <input type="email" name="email" size="40" placeholder="${request.query['email_err']}"><br>
                 <br>
                 <br>
             `;
@@ -228,6 +228,7 @@ app.post("/register", function (request, response) {
 // Invalid quantities are not added to inovice and message is displayed if not enough inventory exists
 // display_inovice_table_rows adds orders line-by-line to a string that is printed in invoice.template
 app.post("/process_invoice", function (request, response, next) {
+    let POST = request.body;
 
     // Logs to console the IP of purchase being made as well as the request of which items and the quantity requested
     console.log(Date.now() + ': Purchase made from ip ' + request.ip + ' data: ' + JSON.stringify(POST));

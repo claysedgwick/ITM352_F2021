@@ -44,34 +44,12 @@
     <div>
         <main>
         <br>
-            <table class="invoiceTable" style="border-collapse: collapse; width: 700px; height: 100px;" border="3" bordercolor="#111111" cellpadding="5" cellspacing="0"><tbody>
-            <th>Item<td>Quantity</th><th>Price</th><th>Extended Price</th>
-            ${display_invoice_table_rows()}
-            <tr>
-                <td style="text-align: right;" colspan="3" width="67%"><span style="padding-right: 10px">Sub-total</span></td>
-                <td width="54%">$
-                ${subtotal.toFixed(2)}
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: right;" colspan="3" width="67%"><span style="padding-right: 10px">Tax @
-                    ${(100 * tax_rate)}%</span></td>
-                <td width="54%">\$${tax.toFixed(2)}</td>
-            </tr>
-            <tr>
-                <td style="text-align: right;" colspan="3" width="67%"><span style="padding-right: 10px">Shipping</span></td>
-                <td width="54%">\$${shipping.toFixed(2)}</td>
-            </tr>
-            <tr>
-                <td style="text-align: right;" colspan="3" width="67%"><strong><span style="padding-right: 10px">Total</span></strong></td>
-                <td width="54%"><strong>\$${total.toFixed(2)}</strong></td>
-            </tr>
-            </tbody></table>
-            <br>
-            <!-- Button to Visit Store Page -->
-            <a href="./store">
-                <button class="homepageButton" type="button" width="100px"><b>RETURN</b></button>
-            </a>
+        <div class="login">
+        <p>Please enter your login information for Biiru International</p>
+        <p>
+        ${display_login()}
+        </p>
+        </div>
         </main>
     </div>
 </body>
