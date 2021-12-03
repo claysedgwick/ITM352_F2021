@@ -3,6 +3,7 @@ var express = require('express');
 var myParser = require("body-parser");
 var fs = require('fs');
 var products = require("./products.json");
+products.forEach( (prod,i) => {prod.total_sold = 0});
 
 var app = express();
 
@@ -23,35 +24,14 @@ function isNonNegativeInteger(inputString, returnErrors = false) {
     return returnErrors ? errors : (errors.length == 0);
 }
 
+app.get("/products.js", function (request, response, next) {
+    response.type('.js');
+    var products_str = `var products = ${JSON.stringify(products)};`;
+    response.send(products_str);
+ });
+
 app.post("/process_invoice", function (request, response, next) {
     let POST = request.body;
-
-    if (typeof POST['quantity_textbox'] != 'undefined') {
-        let quantity = POST['quantity_textbox'];
-        if (isNonNegativeInteger(quantity)) {
-            products[0]['total_sold'] += Number(quantity);
-            response.redirect('receipt.html?quantity=' + quantity);
-        }
-        else {
-            response.redirect(`order_page.html?error=Invalid%20Quantity&quantity_textbox=` + quantity);
-        }
-    }
-
-    if(typeof POST['purchase_submit'] == 'undefined') {
-        console.log('No purchase form data');
-        next();
-    }
-
-    if (typeof POST['quantity_textbox'] != 'undefined') {
-        let quantity = POST['quantity_textbox'];
-        if (isNonNegativeInteger(quantity)) {
-            products[0]['total_sold'] += Number(quantity);
-            response.redirect('receipt.html?quantity=' + quantity);
-        }
-        else {
-            response.redirect(`order_page.html?error=Invalid%20Quantity&quantity_textbox=` + quantity);
-        }
-    }
 
     console.log(Date.now() + ': Purchase made from ip ' + request.ip + ' data: ' + JSON.stringify(POST));
 
@@ -68,16 +48,30 @@ app.post("/process_invoice", function (request, response, next) {
             }
             if (a_qty > 0) {
                 // product row
-                extended_price =a_qty * products[i].price
-                subtotal += extended_price;
-                str += (`
-                <tr>
-                    <td width="43%">${products[i].name}</td>
-                    <td align="center" width="11%">${a_qty}</td>
-                    <td width="13%">\$${products[i].price.toFixed(2)}</td>
-                    <td width="54%">\$${extended_price.toFixed(2)}</td>
-                </tr>
-                `);
+                if (a_qty > products[i].quantity_available) {
+                    str += (`
+                    <tr>
+                        <td align="center" width="43%">Sorry, you wanted ${a_qty} ${products[i].name} but we only have ${products[i].quantity_available} available!</td>
+                        <td align="center" width="11%">-</td>
+                        <td align="center" width="13%">-</td>
+                        <td align="center" width="54%">-</td>
+                    </tr>
+                    `)
+                }
+                else {
+                    extended_price =a_qty * products[i].price
+                    subtotal += extended_price;
+                    str += (`
+                    <tr>
+                        <td width="43%">${products[i].name}</td>
+                        <td align="center" width="11%">${a_qty}</td>
+                        <td width="13%">\$${products[i].price.toFixed(2)}</td>
+                        <td width="54%">\$${extended_price.toFixed(2)}</td>
+                    </tr>
+                    `);
+                    products[i].quantity_available -= a_qty;
+                    products[i].total_sold += Number(a_qty);
+                }
             }
         }
         // Compute tax
@@ -141,6 +135,8 @@ app.get("/store", function (request, response) {
                     <label for="quantity${i}" id="quantity${i}_label"}">Quantity</label>
                     <input type="text" placeholder="0" name="quantity${i}" 
                     onkeyup="checkQuantityTextbox(this);">
+                    <p>Total Available: ${products[i].quantity_available}</p>
+                    <p>Total Sold: ${products[i].total_sold}</p>
                 </section>
             `;
         }
