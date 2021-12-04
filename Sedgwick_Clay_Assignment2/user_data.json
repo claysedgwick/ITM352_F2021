@@ -1,1 +1,8 @@
-{"itm352":{"name":"ITM 352","password":"grader","email":"itm352@hawaii.edu"},"clay":{"password":"hello","email":"clay@hello.com"},"bobby":{"password":"bobbob","email":"bob@gmail.com"},"joejoe":{"password":"hello","email":"joe@joe.com"},"james":{"password":"james","email":"james@james.com"},"joebob":{"firstName":"Joe","lastName":"Bob","password":"joejoe","email":"joe@bob.com"},"yoda":{"firstName":"Yoda","lastName":"Binks","password":"yodayoda","email":"yoda@theforce.com"}}
+{
+    "itm352": {
+        "firstName": "ITM",
+        "lastName": "352",
+        "password": "grader",
+        "email": "itm352@hawaii.edu"
+    }
+}

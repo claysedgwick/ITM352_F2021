@@ -82,6 +82,8 @@ app.get("/login", function (request, response) {
 // If a user enters a correct username (not case sensitive) and password (case sensitive), they are redirected to the store page
 app.post("/login", function (request, response) {
     let params = new URLSearchParams(request.query);
+    username = request.body.username.toLowerCase();
+
 
     // Process login form POST and redirect to logged in page if ok, back to login page if not
     console.log("Got a POST to login");
@@ -92,26 +94,27 @@ app.post("/login", function (request, response) {
     POST = request.body;
     user_name = POST["username"].toLowerCase();
     user_pass = POST["password"];
+    let name = user_data[user_name].firstName;
 
     // Determine if correct login information has been entered
     if (user_data[user_name] != undefined) {
         if (user_data[user_name].password == user_pass) {
             // Good login
             console.log("User " + user_name + " logged in on " + Date() + " from the IP " + request.ip);
-            response.redirect('./process_invoice?'+ params.toString());
+            response.redirect('./process_invoice?'+ "firstName=" + name + "&" + params.toString());
         }
         else {
             // Bad login, redirect
             console.log("Incorrect password entered by " + user_name);
             errors['invalid_password'] = `<br>Invalid password entered`;
-            response.redirect('./login'+ params.toString());
+            response.redirect('./login'+ "?" + params.toString());
         }
     }
     else {
         // Bad username
         console.log("Invalid username entered by " + user_name);
         errors['invalid_username'] = `<br>The username '${user_name}' is not a valid username`;
-        response.redirect('./login'+ params.toString());
+        response.redirect('./login'+ "?" + params.toString());
     }
 });
 
@@ -243,9 +246,9 @@ app.post("/register", function (request, response) {
 // Invalid quantities are not added to inovice and message is displayed if not enough inventory exists
 // display_inovice_table_rows adds orders line-by-line to a string that is printed in invoice.template
 app.get("/process_invoice", function (request, response, next) {
-
     // Logs to console the IP of purchase being made as well as the request of which items and the quantity requested
     console.log(Date.now() + ': Purchase made from ip ' + request.ip + ' data: ' + JSON.stringify(POST));
+    params = request.query['firstName'];
 
     var contents = fs.readFileSync('./views/invoice.template', 'utf8');
     response.send(eval('`' + contents + '`')); // render template string
@@ -312,8 +315,12 @@ app.get("/process_invoice", function (request, response, next) {
         total = subtotal + tax + shipping;
 
         // Redirct to store page if the user tries to submit with 0 quantity for all items
+        let params = '';
+        if (request.query['firstName'] != undefined) {
+            params = request.query['firstName'];
+        }
         if (total == 0) {
-            response.redirect("store");
+            response.redirect("store" + "?firstName=" + params.toString());
         }
 
         return str;
@@ -330,7 +337,11 @@ app.get("/store", function (request, response) {
     response.send(eval('`' + contents + '`')); // render template string
 
     function display_products() {
-        str = '<div class="products">';
+        let displayName = '';
+        if (request.query['firstName'] != undefined) {
+            displayName = request.query['firstName'];
+        }
+        str = (`<br><div class="welcome">Hey <b>${displayName}</b>! Let's buy some beer!</div><br><div class="products">`);
         for (i = 0; i < products.length; i++) {
             // Assign rating image address based off of rating attribute in product_data.js 
             if (products[i].rating >= 4.5) {
