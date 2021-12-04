@@ -10,7 +10,6 @@ var queryString = require("query-string");
 var app = express();
 var errors = {}; // keep errors on server to share with registration page
 products.forEach((prod, i) => { prod.total_sold = 0 });
-fs.chmodSync('./user_data.json', '777');
 
 app.use(express.urlencoded({extended:true}));
 app.use(myParser.urlencoded({ extended: true }));
