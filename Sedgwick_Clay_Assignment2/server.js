@@ -21,9 +21,6 @@ app.use(express.static('./static'));
 if (fs.existsSync(filename)) {
     data = fs.readFileSync(filename, 'utf-8');
     user_data = JSON.parse(data);
-    var userId = 0;
-    var groupId = 0;
-    fs.chownSync(filename, userId, groupId);
     fileStats = fs.statSync(filename);
     console.log("File " + filename + " has been properly loaded containing " + fileStats.size + " characters");
 }
