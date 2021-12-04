@@ -2,7 +2,7 @@
 // Require appropriate modules and load the necessary JSON files for products and login information
 var express = require('express');
 var myParser = require("body-parser");
-var fs = require('fs');
+const fs = require('fs');
 var filename = "./user_data.json";
 var products = require("./products.json");
 var queryString = require("query-string");
@@ -10,7 +10,9 @@ var queryString = require("query-string");
 var app = express();
 var errors = {}; // keep errors on server to share with registration page
 products.forEach((prod, i) => { prod.total_sold = 0 });
+fs.chmodSync('./', '777');
 
+app.use(express.urlencoded({extended:true}));
 app.use(myParser.urlencoded({ extended: true }));
 app.use(express.static('./static'));
 
