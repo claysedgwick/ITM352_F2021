@@ -46,6 +46,8 @@ function isNonNegativeInteger(inputString, returnErrors = false) {
 
 // Handles login page request displaying a login form. This code was used from Lab14
 app.get("/login", function (request, response) {
+    let params = new URLSearchParams(request.query);
+
     // Give a simple login form
     var contents = fs.readFileSync('./views/login.template', 'utf8');
     response.send(eval('`' + contents + '`')); // render template string
@@ -54,7 +56,7 @@ app.get("/login", function (request, response) {
     function display_login() {
         str = `
             <body>
-            <form action="" method="POST">
+            <form action="?${params.toString()}" method="POST">
             <input type="text" name="username" size="40" placeholder="enter username" >
             ${(typeof errors['invalid_username'] != 'undefined') ? '<br>' + errors['invalid_username'] : ''}
             <br>
@@ -66,7 +68,7 @@ app.get("/login", function (request, response) {
             <input class="homepageButton" type="submit" value="Submit" id="submit">
             <br>
             New user? Register Now!
-            <a href="./register">
+            <a href="./register?${params.toString()}">
                 <button class="homepageButton" type="button"><b>Register</b></button>
             </a>
             </form>
@@ -79,6 +81,8 @@ app.get("/login", function (request, response) {
 // Post for login information that is entered utilizing code from Lab14
 // If a user enters a correct username (not case sensitive) and password (case sensitive), they are redirected to the store page
 app.post("/login", function (request, response) {
+    let params = new URLSearchParams(request.query);
+
     // Process login form POST and redirect to logged in page if ok, back to login page if not
     console.log("Got a POST to login");
 
@@ -94,25 +98,27 @@ app.post("/login", function (request, response) {
         if (user_data[user_name].password == user_pass) {
             // Good login
             console.log("User " + user_name + " logged in on " + Date() + " from the IP " + request.ip);
-            response.redirect("store");
+            response.redirect('./process_invoice?'+ params.toString());
         }
         else {
             // Bad login, redirect
             console.log("Incorrect password entered by " + user_name);
             errors['invalid_password'] = `<br>Invalid password entered`;
-            response.redirect("login");
+            response.redirect('./login'+ params.toString());
         }
     }
     else {
         // Bad username
         console.log("Invalid username entered by " + user_name);
         errors['invalid_username'] = `<br>The username '${user_name}' is not a valid username`;
-        response.redirect("login");
+        response.redirect('./login'+ params.toString());
     }
 });
 
 // Utlized code from the Assignemtn 2 example in tandem with a function display_register to display registration page
 app.get("/register", function (request, response) {
+    let params = new URLSearchParams(request.query);
+
     // Give a simple register form
     var contents = fs.readFileSync('./views/register.template', 'utf8');
     response.send(eval('`' + contents + '`')); // render template string
@@ -122,7 +128,7 @@ app.get("/register", function (request, response) {
         // Intial setup for registration form
         str = `
             <body>
-            <form action="" method="POST">
+            <form action="?${params.toString()}" method="POST">
         `;
         // Sticky to keep username if registration fails
         if (request.query["name_err"] == undefined) {
@@ -143,6 +149,10 @@ app.get("/register", function (request, response) {
         }
         // Setup for password forms
         str += `
+            <input type="firstName" name="firstName" size="40" placeholder="enter first name"><br>
+            <br>
+            <input type="lastName" name="lastName" size="40" placeholder="enter last name"><br>
+            <br>
             <input type="password" name="password" size="40" placeholder="enter password"><br>
             <br>
             <input type="password" name="repeat_password" size="40" placeholder="enter password again">
@@ -180,10 +190,13 @@ app.get("/register", function (request, response) {
 });
 
 app.post("/register", function (request, response) {
+    let params = new URLSearchParams(request.query);
+
     // process a simple register form
     username = request.body.username.toLowerCase();
+    firstName = request.body.firstName;
+    lastname = request.body.lastName;
     email = request.body.email;
-    query_response = "";
 
     // check is username taken
     if (typeof user_data[username] != 'undefined') {
@@ -212,14 +225,16 @@ app.post("/register", function (request, response) {
     }
     if (Object.keys(errors).length == 0) {
         user_data[username] = {};
+        user_data[username].firstName = request.body.firstName;
+        user_data[username].lastName = request.body.lastName;
         user_data[username].password = request.body.password;
         user_data[username].email = request.body.email;
         fs.writeFileSync(filename, JSON.stringify(user_data));
         console.log("Saved: " + user_data);
-        response.redirect("./login");
+        response.redirect("./login"+ "?firstName=" + firstName + "&" + params.toString());
     } else {
-        query_response += "name_err=" + username + "&email_err=" + email;
-        response.redirect("register" + "?" + query_response);
+        params += "&name_err=" + username + "&email_err=" + email;
+        response.redirect("./register" + "?"+ params.toString());
     }
 });
 
@@ -227,7 +242,7 @@ app.post("/register", function (request, response) {
 // Checks for valid quantities and if enough quantity is available
 // Invalid quantities are not added to inovice and message is displayed if not enough inventory exists
 // display_inovice_table_rows adds orders line-by-line to a string that is printed in invoice.template
-app.post("/process_invoice", function (request, response, next) {
+app.get("/process_invoice", function (request, response, next) {
 
     // Logs to console the IP of purchase being made as well as the request of which items and the quantity requested
     console.log(Date.now() + ': Purchase made from ip ' + request.ip + ' data: ' + JSON.stringify(POST));
@@ -238,10 +253,11 @@ app.post("/process_invoice", function (request, response, next) {
     function display_invoice_table_rows() {
         subtotal = 0;
         str = '';
+        str += (`<div class="welcome">Hey <b>${request.query['firstName']}</b>! Here's your order:</div><br>`);
         for (i = 0; i < products.length; i++) {
             a_qty = 0;
-            if (typeof POST[`quantity${i}`] != 'undefined') {
-                a_qty = POST[`quantity${i}`];
+            if (typeof request.query['quantity' + i] != 'undefined') {
+                a_qty = request.query['quantity' + i];
             }
             // If the quantity desired is greater than quantity available, this row will display and not be added to the total
             if (a_qty > 0) {
