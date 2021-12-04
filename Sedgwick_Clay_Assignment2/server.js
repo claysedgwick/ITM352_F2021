@@ -23,6 +23,7 @@ if (fs.existsSync(filename)) {
     user_data = JSON.parse(data);
 
     fileStats = fs.statSync(filename);
+    fs.chmodSync(filename, '777');
     console.log("File " + filename + " has been properly loaded containing " + fileStats.size + " characters");
 }
 else {
