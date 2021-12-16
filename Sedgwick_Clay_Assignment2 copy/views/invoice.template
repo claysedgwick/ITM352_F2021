@@ -69,7 +69,7 @@
             </tbody></table>
             <br>
             <!-- Button to Visit Store Page -->
-            <a href="./store">
+            <a href="./store?firstName=${params}">
                 <button class="homepageButton" type="button" width="100px"><b>RETURN</b></button>
             </a>
         </main>
