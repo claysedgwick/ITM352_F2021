@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biiru International Store</title>
+    <link rel="stylesheet" href="./static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- Website Logo -->
+    <div class="homepageLogo">
+        <a href="./index.html">
+            <img src="images/logo.png" width="100%"></img>
+        </a>
+    </div>
+    <br>
+
+    <!-- Website Tagline -->
+    <div class="tagline">
+        <i>Get the real taste of Japan with our exclusive Japanese beer selection</i>
+    </div>
+    <div>
+        <main>
+        <br>
+        <div class="login">
+        <p>Please enter your login information for Biiru International</p>
+        <p>
+        ${display_login()}
+        </p>
+        </div>
+        </main>
+    </div>
+</body>
+<footer>
+    Copywrite 2021 Biiru International Corporation
+</footer>
+
+</html>

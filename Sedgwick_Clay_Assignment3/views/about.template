@@ -1,0 +1,62 @@
+<script></script>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biiru International Store</title>
+    <link rel="stylesheet" href="./static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
+    <link href="${theme}" rel="stylesheet">
+</head>
+
+<body>
+        <header>
+            <!-- Website Logo -->
+            <div class="homepageLogo">
+                <a href="./index.html">
+                    <img src="images/logo.png" width="100%"></img>
+                </a>
+            </div>
+            <div class="navBar">
+                <a href="./">
+                    <button class="navButton" type="button"><b>HOME</b></button>
+                </a>
+                <a href="./lightbeer">
+                    <button class="navButton" type="button"><b>STORE</b></button>
+                </a>
+                <a href="./about">
+                    <button class="navButton" type="button"><b>ABOUT US</b></button>
+                </a>
+                <a href="./login">
+                    <button class="navButton" type="button"><b>LOGIN</b></button>
+                </a>
+                <a href="./logout">
+                    <button class="navButton" type="button"><b>LOGOUT</b></button>
+                </a>
+                <a href="./account">
+                    <button class="navButton" type="button"><b>ACCOUNT</b></button>
+                </a>
+            </div>
+            <br>
+
+            <!-- Website Tagline -->
+            <div class="tagline">
+                <i>Get the real taste of Japan with our exclusive Japanese beer selection</i>
+            </div>
+        </header>
+            <br>
+        <div>
+            <main>
+                ${display_about()}
+            </main>
+        </div>
+        <br>
+    <footer>
+        Copywrite 2021 Biiru International Corporation
+    </footer>
+</body>
+
+</html>
